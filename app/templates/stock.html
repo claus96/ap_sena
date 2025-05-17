@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Stock - Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Gestionar Stock</h2>
+        <div class="card p-4 mb-4">
+            <h3>Actualizar Stock</h3>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="id_gelatina" class="form-label">Gelatina</label>
+                    <select class="form-select" id="id_gelatina" name="id_gelatina" required>
+                        <option value="">Selecciona una gelatina</option>
+                        {% for gelatina in gelatinas %}
+                            <option value="{{ gelatina.id_gelatina }}">{{ gelatina.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidad" name="cantidad" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar Stock</button>
+            </form>
+        </div>
+        <h3>Stock Actual</h3>
+        {% if stocks %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Gelatina</th>
+                        <th>Cantidad</th>
+                        <th>Última Actualización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stocks %}
+                        <tr>
+                            <td>{{ stock.gelatina.nombre }}</td>
+                            <td>{{ stock.cantidad }}</td>
+                            <td>{{ stock.fecha_actualizacion }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">No hay stock registrado.</div>
+        {% endif %}
+    </div>
+{% endblock %}

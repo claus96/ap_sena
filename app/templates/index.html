@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Bienvenido a Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <!-- Sección Hero -->
+        <div class="bg-light text-center py-5 mb-5 rounded">
+            <h1 class="display-4">Sabor Domingo</h1>
+            <p class="lead">Disfruta de nuestras deliciosas gelatinas artesanales, perfectas para cualquier ocasión.</p>
+            <a href="{{ url_for('main.pedido') }}" class="btn btn-primary btn-lg">Hacer un Pedido</a>
+        </div>
+
+        <!-- Galería de Gelatinas -->
+        <h2 class="mb-4">Nuestras Gelatinas</h2>
+        {% if gelatinas %}
+            <div class="row">
+                {% for gelatina in gelatinas %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            {% if gelatina.imagen %}
+                                <img src="{{ url_for('static', filename='img/' ~ gelatina.imagen) }}" class="card-img-top" alt="{{ gelatina.nombre }}" style="height: 200px; object-fit: cover;">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='img/placeholder.jpg') }}" class="card-img-top" alt="Gelatina" style="height: 200px; object-fit: cover;">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ gelatina.nombre }}</h5>
+                                <p class="card-text">{{ gelatina.descripcion or 'Deliciosa gelatina artesanal' }}</p>
+                                <p class="card-text"><strong>Precio:</strong> ${{ gelatina.precio }}</p>
+                                <a href="{{ url_for('main.pedido') }}" class="btn btn-primary">Pedir Ahora</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">No hay gelatinas disponibles en este momento.</div>
+        {% endif %}
+    </div>
+{% endblock %}

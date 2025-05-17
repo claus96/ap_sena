@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Bienvenido, {{ current_user.nombre }}</h2>
+        <div class="alert alert-info">
+            Usa el menú superior para gestionar gelatinas, categorías, stock o pedidos.
+        </div>
+        <h3 class="mb-3">Stock de Gelatinas</h3>
+        <div class="card p-4">
+            <canvas id="stockChart"></canvas>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const gelatinas = {{ gelatinas | tojson }};
+                const stocks = {{ stocks | tojson }};
+                if (typeof inicializarGraficoStock === 'function') {
+                    inicializarGraficoStock(gelatinas, stocks);
+                } else {
+                    console.error('inicializarGraficoStock no está definida');
+                }
+            });
+        </script>
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Gelatinas - Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Gestionar Gelatinas</h2>
+        <div class="card p-4 mb-4">
+            <h3>Agregar Gelatina</h3>
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.gelatinas') }}">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_categoria" class="form-label">Categoría</label>
+                    <select class="form-select" id="id_categoria" name="id_categoria" required>
+                        <option value="">Selecciona una categoría</option>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id_categoria }}">{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="imagen" class="form-label">Imagen</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen" accept=".png,.jpg,.jpeg,.gif">
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Gelatina</button>
+            </form>
+        </div>
+        <h3>Gelatinas Registradas</h3>
+        {% if gelatinas %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Descripción</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gelatina in gelatinas %}
+                        <tr>
+                            <td>{{ gelatina.nombre }}</td>
+                            <td>{{ gelatina.categoria.nombre }}</td>
+                            <td>${{ gelatina.precio }}</td>
+                            <td>{{ gelatina.descripcion or 'Sin descripción' }}</td>
+                            <td>
+                                {% if gelatina.imagen %}
+                                    <img src="{{ url_for('static', filename='img/' ~ gelatina.imagen) }}" alt="{{ gelatina.nombre }}" style="max-width: 100px;">
+                                {% else %}
+                                    Sin imagen
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('main.editar_gelatina', id=gelatina.id_gelatina) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{{ url_for('main.eliminar_gelatina', id=gelatina.id_gelatina) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta gelatina?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">No hay gelatinas registradas.</div>
+        {% endif %}
+    </div>
+{% endblock %}

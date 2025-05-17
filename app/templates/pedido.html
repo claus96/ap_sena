@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Hacer Pedido - Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Realizar Pedido</h2>
+        {% if mensaje %}
+            <div class="alert alert-success">{{ mensaje }}</div>
+        {% elif error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <div class="card p-4">
+            <form method="POST">
+                <h3>Datos del Cliente</h3>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono">
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <textarea class="form-control" id="direccion" name="direccion" rows="4"></textarea>
+                </div>
+                <h3>Selecciona tus Gelatinas</h3>
+                <div id="items">
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <label for="gelatinas" class="form-label">Gelatina</label>
+                            <select class="form-select" name="gelatinas[]" required>
+                                <option value="">Selecciona una gelatina</option>
+                                {% for gelatina in gelatinas %}
+                                    <option value="{{ gelatina.id_gelatina }}">{{ gelatina.nombre }} - ${{ gelatina.precio }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cantidades" class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" name="cantidades[]" min="1" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mb-3" onclick="agregarItem()">Agregar otra gelatina</button>
+                <button type="submit" class="btn btn-primary">Enviar Pedido</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

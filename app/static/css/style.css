@@ -1,0 +1,128 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Barra de navegación */
+.navbar-dark {
+    background-color: #ff6f61; /* Color coral para Sabor Domingo */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: #fff !important;
+}
+
+.nav-link:hover {
+    color: #f8d7da !important; /* Tono claro para hover */
+}
+
+/* Sección Hero */
+.bg-light {
+    background-color: #f8e1e1 !important; /* Fondo suave para hero */
+    border-radius: 10px;
+}
+
+.display-4 {
+    color: #ff6f61;
+    font-weight: bold;
+}
+
+.lead {
+    color: #555;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #28a745; /* Verde para botones */
+    border-color: #28a745;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Tarjetas de gelatinas */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #ff6f61;
+}
+
+.card-text {
+    color: #555;
+}
+
+/* Tablas */
+.table {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 5px;
+}
+
+.form-select {
+    border-radius: 5px;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 5px;
+}
+
+/* Estilos para el gráfico */
+#stockChart {
+    max-height: 400px; /* Aumentar la altura del gráfico */
+    width: 100%;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+    }
+
+    #stockChart {
+        max-height: 300px; /* Reducir altura en pantallas pequeñas */
+    }
+}

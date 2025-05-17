@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Pedidos - Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Gestionar Pedidos</h2>
+        {% if pedidos %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{ pedido.id_pedido }}</td>
+                            <td>{{ pedido.cliente.nombre }}</td>
+                            <td>{{ pedido.fecha_pedido.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td>{{ pedido.estado }}</td>
+                            <td>${{ pedido.total }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">No hay pedidos registrados.</div>
+        {% endif %}
+    </div>
+{% endblock %}

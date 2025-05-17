@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Editar Gelatina - Sabor Domingo{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4">Editar Gelatina</h2>
+        <div class="card p-4">
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.editar_gelatina', id=gelatina.id_gelatina) }}">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ gelatina.nombre }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_categoria" class="form-label">Categoría</label>
+                    <select class="form-select" id="id_categoria" name="id_categoria" required>
+                        <option value="">Selecciona una categoría</option>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id_categoria }}" {% if categoria.id_categoria == gelatina.id_categoria %}selected{% endif %}>{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" value="{{ gelatina.precio }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4">{{ gelatina.descripcion or '' }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="imagen" class="form-label">Imagen</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen" accept=".png,.jpg,.jpeg,.gif">
+                    {% if gelatina.imagen %}
+                        <p class="mt-2">Imagen actual: <img src="{{ url_for('static', filename='img/' ~ gelatina.imagen) }}" alt="{{ gelatina.nombre }}" style="max-width: 100px;"></p>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <a href="{{ url_for('main.gelatinas') }}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
